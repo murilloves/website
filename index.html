@@ -95,14 +95,14 @@
 
     let outterNode = document.createElement("div");
     outterNode.classList.add('star');
-    outterNode.style.left = coordX + "px";
-    outterNode.style.top = coordY + "px";
+    outterNode.style.left = coordX + "vw";
+    outterNode.style.top = coordY + "vh";
     outterNode.style.zIndex = index;
 
     let innerNode = document.createElement("span");
     innerNode.style.opacity = shine;
     const randomNumber = Math.random();
-    const starSize = Math.floor(randomNumber * 4) + 1;
+    const starSize = Math.floor(randomNumber * 3) + 1;
     innerNode.style.animation = `glow 3.14s ease ${randomNumber * 18}s infinite normal forwards`;
     innerNode.style.width = starSize;
     innerNode.style.height = starSize;
@@ -111,7 +111,7 @@
     sectionStars.appendChild(outterNode);
   }
 
-  getRandomNumber = (max, min) => Math.floor(Math.random() * (max - min) + min);
+  getRandomNumber = (max, min) => Math.random() * (max - min) + min;
 
   skyGradientIndex = 0;
   skyGradients = [
@@ -173,8 +173,8 @@
       const scrHeight = screen.height;
 
       const scrMiddle = {
-        xDivisorFactor: Math.floor(scrWidth / 9),
-        yDivisorFactor: Math.floor(scrHeight / 16),
+        xDivisorFactor: Math.floor(scrWidth / 6.75),
+        yDivisorFactor: Math.floor(scrHeight / 12),
       }
 
       const xPosition = ev.x;
@@ -184,13 +184,12 @@
 
       const stars = document.getElementsByClassName('star');
       Array.from(stars).forEach(star => {
-
-        const starPosX = Number(star.style.left.split('px')[0]);
-        const starPosY = Number(star.style.top.split('px')[0]);
+        const starPosX = Number(star.style.left.split('vw')[0]);
+        const starPosY = Number(star.style.top.split('vh')[0]);
 
         const crazyRandom = Math.floor(Math.random() * (1 + 1) - 1 );
 
-        star.style.marginLeft = - Math.floor((ev.x - starPosX / 2) / scrMiddle.xDivisorFactor) + 0 + 'px';
+        star.style.marginLeft = - Math.floor((ev.x - starPosX / 2) / scrMiddle.xDivisorFactor) + crazyRandom + 'px';
         star.style.marginTop = - Math.floor((ev.y - starPosY / 2) / scrMiddle.yDivisorFactor) + 'px';
 
         setTimeout(() => {
@@ -211,8 +210,8 @@
     console.log('screenSize ', screenSize );
 
     for (let itr = 0; itr < starsQtd; itr++) {
-      const coordX = getRandomNumber(screenSize.width + 100, -100);
-      const coordY = getRandomNumber(screenSize.height + 100, -100);
+      const coordX = getRandomNumber(100 + 5, -5);
+      const coordY = getRandomNumber(100 + 5, -5);
 
       createStar(coordX, coordY, itr);
     }
